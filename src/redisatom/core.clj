@@ -5,11 +5,17 @@
 
 
 (defn value-of [jedis k]
-  (read-string (.get jedis k)))
+  (let [d (read-string (.get jedis k))
+        v (:value d)
+        m (:meta d)]
+    (if (instance? clojure.lang.IObj v)
+      (with-meta v m)
+      v)
+    ))
 
 (defmacro set-value [jedis k expr]
   `(let [v# ~expr
-         res# (.set ~jedis ~k (pr-str v#))]
+         res# (.set ~jedis ~k (pr-str {:meta (meta v#), :value v#}))]
      (if (= res# "OK")
        v#
        res#) ;; throw exception here??
