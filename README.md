@@ -8,6 +8,9 @@ A Clojure library that implements redis as a duration atom.
 Add the following line to your leinigen dependencies:
 ```clojure
 [redisatom "0.1.0-SNAPSHOT"]
+```
+
+
 
 ```clojure
 => (use 'redisatom.core)
@@ -21,8 +24,6 @@ nil
 0
 => (swap! a inc)
 1
-
-
 ```
 
 ## License
