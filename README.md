@@ -1,10 +1,29 @@
 # redisatom
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library that implements redis as a duration atom.
 
 ## Usage
 
-FIXME
+### Clojure
+Add the following line to your leinigen dependencies:
+```clojure
+[redisatom "0.1.0-SNAPSHOT"]
+
+```clojure 
+=> (use 'redisatom.core)
+=> (import 'redis.clients.jedis.Jedis]
+=> (def ra (redis-atom (Jedis.)))
+=> (def atom-for-a-key (ra "key"))
+=> (def a (ra "key"))
+=> @a
+nil
+=> (reset! a 0)
+0
+=> (swap! a inc)
+1
+
+
+```
 
 ## License
 

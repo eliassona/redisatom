@@ -5,7 +5,8 @@
 
 
 (defn value-of [jedis k]
-  (let [d (read-string (.get jedis k))
+  (let [d (.get jedis k)
+        d (if d (read-string d) d)
         v (:value d)
         m (:meta d)]
     (if (instance? clojure.lang.IObj v)
@@ -60,5 +61,12 @@ IRef
 
 (defn redis-atom [jedis]
   (fn [k] (->RedisAtom jedis k)))
+
+
   
-    
+(commenet
+(import 'redis.clients.jedis.HostAndPort)
+(import 'redis.clients.jedis.JedisCluster)
+
+(def host-set (into #{} (map (comp #(HostAndPort. "localhost" %) (partial + 7000)) (range 6))))
+)
