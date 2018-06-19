@@ -1,6 +1,7 @@
 # redisatom
 
-A Clojure library that implements redis as a duration atom.
+A Clojure library that implements redis as a durable atom.
+
 
 ## Usage
 
@@ -24,6 +25,15 @@ nil
 0
 => (swap! a inc)
 1
+```
+There is also a function for iterating the keys with a lazy-seq.
+
+```clojure
+=> (def j (Jedis.)) 
+=> (def ra (redis-atom j))
+=> (dotimes [i 10] (reset! (ra (str i)) "some value")) ;insert some values into redis
+=> (redis-keys j)
+("0" "6" "3" "9" "1" "4" "8" "7" "5" "2")
 ```
 
 ## License
