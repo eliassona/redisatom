@@ -1,7 +1,7 @@
 (ns redisatom.core
   (:use [clojure.pprint])
   (:import [clojure.lang IAtom IRef IDeref IObj IMeta]
-           [redis.clients.jedis Jedis]))
+           [redis.clients.jedis Jedis ScanParams]))
 
 
 (defn value-of [jedis k]
@@ -63,8 +63,25 @@ IRef
   (fn [k] (->RedisAtom jedis k)))
 
 
+(defn redis-keys
+  "Lazy seq of the keys in redis"
+  ([jedis]
+    (redis-keys jedis "*"))
+  ([jedis wildcard]
+    (let [sp (ScanParams.)
+          _ (.match sp wildcard)
+          sr (.scan jedis "0" sp)]
+        (redis-keys jedis (.getResult sr) (.getStringCursor sr) sp)))
+  ([jedis the-keys next-cursor sp]
+    (if (= next-cursor "0")
+      the-keys
+      (let [sr (.scan jedis next-cursor sp)]
+        (lazy-seq (concat the-keys (redis-keys jedis (.getResult sr) (.getStringCursor sr) sp)))))))
+    
+   
+
   
-(commenet
+(comment
 (import 'redis.clients.jedis.HostAndPort)
 (import 'redis.clients.jedis.JedisCluster)
 
