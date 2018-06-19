@@ -9,7 +9,7 @@ Add the following line to your leinigen dependencies:
 ```clojure
 [redisatom "0.1.0-SNAPSHOT"]
 
-```clojure 
+```clojure
 => (use 'redisatom.core)
 => (import 'redis.clients.jedis.Jedis]
 => (def ra (redis-atom (Jedis.)))
