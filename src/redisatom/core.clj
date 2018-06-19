@@ -79,12 +79,12 @@ IRef
         (lazy-seq (concat the-keys (redis-keys jedis (.getResult sr) (.getStringCursor sr) sp)))))))
     
    
+(comment
 (def j (Jedis.)) 
 (def ra (redis-atom j))
 (dotimes [i 10] (reset! (ra (str i)) "some value")) ;insert some values into redis
 (redis-keys j)
 
-(comment
 (import 'redis.clients.jedis.HostAndPort)
 (import 'redis.clients.jedis.JedisCluster)
 
