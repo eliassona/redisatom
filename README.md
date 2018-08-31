@@ -17,7 +17,6 @@ Add the following line to your leinigen dependencies:
 => (use 'redisatom.core)
 => (import 'redis.clients.jedis.Jedis)
 => (def ra (redis-atom (Jedis.)))
-=> (def atom-for-a-key (ra "key"))
 => (def a (ra "key"))
 => @a
 nil

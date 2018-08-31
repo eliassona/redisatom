@@ -1,7 +1,8 @@
 (ns redisatom.core
   (:use [clojure.pprint])
   (:import [clojure.lang IAtom IRef IDeref IObj IMeta]
-           [redis.clients.jedis Jedis ScanParams]))
+           [redis.clients.jedis Jedis ScanParams]
+           [redis.clients.util JedisClusterCRC16]))
 
 
 (defn value-of [jedis k]
